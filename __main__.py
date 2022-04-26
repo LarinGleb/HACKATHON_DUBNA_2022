@@ -55,6 +55,11 @@ def get_text_messages(message):
             JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
             JSONFunc.SetPropertyUser(idUser, "state", value="replaced")
             bot.send_message(message.from_user.id, "Что хотите изменить?", reply_markup = Keyboard_Column)
+        
+        elif 'extract' in open('SaveFiles/' + str(message.from_user.id) + '.txt').read():
+            open('SaveFiles/' + str(message.from_user.id) + '.txt', 'a').write(message.text + '\n')
+            bot.send_message(message.from_user.id, "Выберите протокол", reply_markup=Keyboard_Prot)
+            
         else:
             bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /start.")
 
