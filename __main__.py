@@ -9,7 +9,7 @@ from aiogram.types import ReplyKeyboardRemove, \
     InlineKeyboardMarkup, InlineKeyboardButton
 
 from Bot.keyboards import *
-from Bot.WorkWithInform import *
+from WorkWithInform import *
 
 from JSON import JSONFunc
 from JSON import ConfigJSON
@@ -57,7 +57,6 @@ def get_text_messages(message):
             bot.send_message(message.from_user.id, "Что хотите изменить?", reply_markup = Keyboard_Column)
         
         elif 'extract' == stateUser:
-            
             bot.send_message(message.from_user.id, "Выберите протокол", reply_markup=Keyboard_Prot)
             
         else:
