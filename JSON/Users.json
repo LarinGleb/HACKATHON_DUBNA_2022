@@ -8,7 +8,9 @@
         "to_file": true,
         "to_rar": false,
         "to_zip": false,
-        "state": "start",
-        "input": []
+        "state": "object",
+        "input": [
+            "object"
+        ]
     }
 }

@@ -56,8 +56,8 @@ def get_text_messages(message):
             JSONFunc.SetPropertyUser(idUser, "state", value="replaced")
             bot.send_message(message.from_user.id, "Что хотите изменить?", reply_markup = Keyboard_Column)
         
-        elif 'extract' in open('SaveFiles/' + str(message.from_user.id) + '.txt').read():
-            open('SaveFiles/' + str(message.from_user.id) + '.txt', 'a').write(message.text + '\n')
+        elif 'extract' == stateUser:
+            
             bot.send_message(message.from_user.id, "Выберите протокол", reply_markup=Keyboard_Prot)
             
         else:
@@ -67,25 +67,28 @@ def get_text_messages(message):
 def callback_inline(call):
     try:
         if call.message:
-            if call.data == "extract":
-                bot.send_message(call.message.chat.id, "Выберите, как получить информацию", reply_markup = Keyboard_Extract)
-                open('SaveFiles/' + str(call.message.chat.id) + '.txt', 'w').write('extract\n')
-
-            elif call.data == 'eon':
-                open('SaveFiles/' + str(call.message.chat.id) + '.txt', 'a').write('eon' + '\n')
-                bot.send_message(call.message.chat.id, "Выберите ион", reply_markup=Keyboard_Eon)
-
-            elif call.data == 'series' or call.data == 'object':
-                open('SaveFiles/' + str(call.message.chat.id) + '.txt', 'a').write(call.data + '\n')
-                bot.send_message(call.message.chat.id, "Перечислите их через пробел")
-
-            elif call.data == 'eon_1' or call.data == 'eon_2' or call.data == 'eon_3' or call.data == 'eon_4':
-                open('SaveFiles/' + str(call.message.chat.id) + '.txt', 'a').write(call.data + '\n')
-                bot.send_message(call.message.chat.id, "Выберите протокол", reply_markup=Keyboard_Prot)
-                
             idUser = call.from_user.id
             if call.data == "extract":
                 bot.send_message(call.message.chat.id, "Выберите, как получить информацию", reply_markup = Keyboard_Extract)
+                JSONFunc.SetPropertyUser(idUser, "state", value=call.data)
+
+            elif call.data == 'eon':
+                JSONFunc.SetPropertyUser(idUser, "state", value=call.data)
+                bot.send_message(call.message.chat.id, "Выберите ион", reply_markup=Keyboard_Eon)
+
+            elif call.data == 'series' or call.data == 'object':
+                JSONFunc.SetPropertyUser(idUser, "state", value=call.data)
+                list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
+                list_input.append(call.data)
+                JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
+                bot.send_message(call.message.chat.id, "Перечислите их через пробел")
+
+            elif call.data == 'eon_1' or call.data == 'eon_2' or call.data == 'eon_3' or call.data == 'eon_4':
+                JSONFunc.SetPropertyUser(idUser, "state", value=call.data)
+                list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
+                list_input.append(call.data)
+                JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
+                bot.send_message(call.message.chat.id, "Выберите протокол", reply_markup=Keyboard_Prot)
 
             elif call.data == "change":
                 bot.send_message(call.message.chat.id, "Выберите лист", reply_markup = Keyboard_Lists)
@@ -93,6 +96,9 @@ def callback_inline(call):
             elif call.data in ['list_1', 'list_2', 'list_3']:
                 bot.send_message(call.message.chat.id, "Что сделать с информацией?", reply_markup = Keyboard_Action_with_list)
                 JSONFunc.SetPropertyUser(idUser, "state", value=call.data)
+                list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
+                list_input.append(call.data)
+                JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
 
             elif call.data == 'add':
                 bot.send_message(call.message.chat.id, "Введите информацию через пробел(столбцы и прочее)")
