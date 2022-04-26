@@ -27,6 +27,7 @@ def get_text_messages(message):
         else:
             bot.send_message(message.from_user.id, "Пароль неверный")
 
+    
     if JSONFunc.CheckUser(idUser):
         stateUser = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_STATE]
         if message.text == "123" or message.text == "/start":
@@ -61,6 +62,22 @@ def get_text_messages(message):
 def callback_inline(call):
     try:
         if call.message:
+            if call.data == "extract":
+                bot.send_message(call.message.chat.id, "Выберите, как получить информацию", reply_markup = Keyboard_Extract)
+                open('SaveFiles/' + str(call.message.chat.id) + '.txt', 'w').write('extract\n')
+
+            elif call.data == 'eon':
+                open('SaveFiles/' + str(call.message.chat.id) + '.txt', 'a').write('eon' + '\n')
+                bot.send_message(call.message.chat.id, "Выберите ион", reply_markup=Keyboard_Eon)
+
+            elif call.data == 'series' or call.data == 'object':
+                open('SaveFiles/' + str(call.message.chat.id) + '.txt', 'a').write(call.data + '\n')
+                bot.send_message(call.message.chat.id, "Перечислите их через пробел")
+
+            elif call.data == 'eon_1' or call.data == 'eon_2' or call.data == 'eon_3' or call.data == 'eon_4':
+                open('SaveFiles/' + str(call.message.chat.id) + '.txt', 'a').write(call.data + '\n')
+                bot.send_message(call.message.chat.id, "Выберите протокол", reply_markup=Keyboard_Prot)
+                
             idUser = call.from_user.id
             if call.data == "extract":
                 bot.send_message(call.message.chat.id, "Выберите, как получить информацию", reply_markup = Keyboard_Extract)
