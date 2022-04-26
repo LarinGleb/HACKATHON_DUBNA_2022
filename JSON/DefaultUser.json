@@ -1,6 +1,7 @@
 {
     "last_mail": [], 
     "standart_mail" : [],
+    "default_settings" : true, 
     "ins_chat" : false,
     "ins_mail" : false, 
     "to_file" : false, 

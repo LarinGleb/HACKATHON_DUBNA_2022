@@ -1,16 +1,17 @@
 {
     "917516209": {
-        "last_mail": [],
+        "last_mail": [
+            "gleblarinpo@gmail.com",
+            "gleblarinpo3@gmail.com"
+        ],
         "standart_mail": [],
         "default_settings": true,
-        "ins_chat": true,
+        "ins_chat": false,
         "ins_mail": false,
-        "to_file": true,
+        "to_file": false,
         "to_rar": false,
         "to_zip": false,
-        "state": "object",
-        "input": [
-            "object"
-        ]
+        "state": "entered",
+        "input": []
     }
 }

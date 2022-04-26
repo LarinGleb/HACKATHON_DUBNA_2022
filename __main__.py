@@ -14,14 +14,16 @@ from WorkWithInform import *
 from JSON import JSONFunc
 from JSON import ConfigJSON
 
-bot = telebot.TeleBot('5362077781:AAFQzCUuV8KKX7q_wShDxYY9t_yFP4yoA7g')
+bot = telebot.TeleBot('5175785145:AAGsNoU_rOlVd6zuMbFhD1W1D4nfxAd88Ag')
 print('Bot started')
+pas = '123'
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
+    global pas
     idUser = message.from_user.id
     if not JSONFunc.CheckUser(idUser):
-        if message.text == "123":
+        if message.text == pas:
             bot.send_message(idUser, "Пароль верный")
             JSONFunc.AddUser(idUser)
         else:
@@ -57,8 +59,28 @@ def get_text_messages(message):
             bot.send_message(message.from_user.id, "Что хотите изменить?", reply_markup = Keyboard_Column)
         
         elif 'extract' == stateUser:
+            list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
+            list_input.append(message.text)
+            JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
+
             bot.send_message(message.from_user.id, "Выберите протокол", reply_markup=Keyboard_Prot)
             
+        elif 'mail' == stateUser:
+            list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
+            list_input.append(message.text)
+            JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
+
+            if message.text not in JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_LAST_MAIL]:
+                list_last_mail = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_LAST_MAIL]
+                list_last_mail.append(message.text)
+                JSONFunc.SetPropertyUser(idUser, "last_mail", value=list_last_mail)
+            bot.send_message(message.from_user.id, "Как отправить файлы?", reply_markup=Keyboard_Extension)
+
+        elif 'password' == stateUser:
+            pas = message.text
+            JSONFunc.SetPropertyUser(idUser, "state", value="settings")
+            bot.send_message(message.from_user.id, "Новый пароль установлен", reply_markup = Keyboard_Settings)
+        
         else:
             bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /start.")
 
@@ -72,23 +94,82 @@ def callback_inline(call):
                 JSONFunc.SetPropertyUser(idUser, "state", value=call.data)
 
             elif call.data == 'eon':
-                JSONFunc.SetPropertyUser(idUser, "state", value=call.data)
+                list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
+                list_input.append(call.data)
+                JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
                 bot.send_message(call.message.chat.id, "Выберите ион", reply_markup=Keyboard_Eon)
 
             elif call.data == 'series' or call.data == 'object':
-                JSONFunc.SetPropertyUser(idUser, "state", value=call.data)
                 list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
                 list_input.append(call.data)
                 JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
                 bot.send_message(call.message.chat.id, "Перечислите их через пробел")
 
             elif call.data == 'eon_1' or call.data == 'eon_2' or call.data == 'eon_3' or call.data == 'eon_4':
-                JSONFunc.SetPropertyUser(idUser, "state", value=call.data)
                 list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
                 list_input.append(call.data)
                 JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
                 bot.send_message(call.message.chat.id, "Выберите протокол", reply_markup=Keyboard_Prot)
 
+            elif call.data == 'prot_1' or call.data == 'prot_2' or call.data == 'prot_3':
+                list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
+                list_input.append(call.data)
+                JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
+                if len(JSONFunc.GetUserConfig(call.message.chat.id) [1])>0:
+                    if JSONFunc.GetUserConfig(call.message.chat.id) [5]:
+                        Output_Information(JSONFunc.GetUserConfig(call.message.chat.id))
+                        bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
+                        JSONFunc.SetPropertyUser(idUser, "state", value="entered")
+                        JSONFunc.SetPropertyUser(idUser, "input", value=[])
+                    elif JSONFunc.GetUserConfig(call.message.chat.id) [6]:
+                        Output_Information(JSONFunc.GetUserConfig(call.message.chat.id))
+                        bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
+                        JSONFunc.SetPropertyUser(idUser, "state", value="entered")
+                        JSONFunc.SetPropertyUser(idUser, "input", value=[])
+                    elif JSONFunc.GetUserConfig(call.message.chat.id) [7]:
+                        Output_Information(JSONFunc.GetUserConfig(call.message.chat.id))
+                        bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
+                        JSONFunc.SetPropertyUser(idUser, "state", value="entered")
+                        JSONFunc.SetPropertyUser(idUser, "input", value=[])
+                    else:
+                        bot.send_message(call.message.chat.id, "Как отправить файлы?", reply_markup=Keyboard_Extension)
+                else:
+                    bot.send_message(call.message.chat.id, "Выберите способ отправки", reply_markup=Keyboard_Send)
+                
+            elif call.data == 'ins_chat': 
+                list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
+                list_input.append(call.data)
+                JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
+                Output_Information(JSONFunc.GetUserConfig(call.message.chat.id))
+                bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
+                JSONFunc.SetPropertyUser(idUser, "state", value="entered")
+                JSONFunc.SetPropertyUser(idUser, "input", value=[])
+
+            elif call.data == 'ins_mail':
+                JSONFunc.SetPropertyUser(idUser, "state", value='mail')
+                list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
+                list_input.append(call.data)
+                JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
+
+                Keyboard_Mail = types.ReplyKeyboardMarkup(row_width=2)  
+                if len(JSONFunc.GetUserConfig(call.message.chat.id) [0]) > 0:
+                    btn_m1 = types.KeyboardButton(JSONFunc.GetUserConfig(call.message.chat.id) [0][0])
+                    Keyboard_Mail.add(btn_m1)
+                    if len(JSONFunc.GetUserConfig(call.message.chat.id) [0]) > 1:
+                        btn_m2 = types.KeyboardButton(JSONFunc.GetUserConfig(call.message.chat.id) [0][1])
+                        Keyboard_Mail.add(btn_m2)
+                bot.send_message(call.message.chat.id, "Введите почту", reply_markup=Keyboard_Mail)
+
+            elif call.data == 'to_zip' or call.data == 'to_pdf' or call.data == 'to_file':
+                list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
+                list_input.append(call.data)
+                JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
+                Output_Information(JSONFunc.GetUserConfig(call.message.chat.id))
+                bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
+                JSONFunc.SetPropertyUser(idUser, "state", value="entered")
+                JSONFunc.SetPropertyUser(idUser, "input", value=[])
+
+            
             elif call.data == "change":
                 bot.send_message(call.message.chat.id, "Выберите лист", reply_markup = Keyboard_Lists)
 
@@ -120,6 +201,14 @@ def callback_inline(call):
                 bot.send_message(call.message.chat.id, "Текущая информация в ячейке: \n" + InformInColumn(call) + '\n Введите новую')
                 JSONFunc.SetPropertyUser(idUser, "state", value="replaceInform")
 
+            elif call.data == 'settings':
+                JSONFunc.SetPropertyUser(idUser, "state", value="settings")
+                bot.send_message(call.message.chat.id, "Меню настроек бота", reply_markup = Keyboard_Settings)
+                
+            
+            elif call.data == 'password':
+                JSONFunc.SetPropertyUser(idUser, "state", value="password")
+                bot.send_message(call.message.chat.id, "Введите новый код доступа")
 
     except Exception as e:
        print(repr(e))
