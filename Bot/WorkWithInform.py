@@ -9,3 +9,6 @@ def InformInColumn(call): #возвращает информацию из яче
 
 def ReplaceInfo(Info): #изменяет информацию
     print(Info)
+
+def Output_Information(dict):
+    print('')

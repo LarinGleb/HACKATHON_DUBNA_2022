@@ -8,7 +8,23 @@
         "to_file": true,
         "to_rar": false,
         "to_zip": false,
-        "state": "start",
+        "state": "object",
+        "input": [
+            "object"
+        ]
+    },
+    "794792323": {
+        "last_mail": [
+            "petr.povt@gmail.com"
+        ],
+        "standart_mail": [],
+        "default_settings": true,
+        "ins_chat": false,
+        "ins_mail": false,
+        "to_file": false,
+        "to_rar": false,
+        "to_zip": false,
+        "state": "settings",
         "input": []
     }
 }
