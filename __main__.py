@@ -128,7 +128,7 @@ def callback_inline(call):
                         JSONFunc.SetPropertyUser(idUser, "input", value=[])
 
                     elif JSONFunc.GetUserConfig(call.message.chat.id) [6]:
-                        Output_Information(jSONFunc.GetUserConfig(call.message.chat.id))
+                        Output_Information(JSONFunc.GetUserConfig(call.message.chat.id))
                         bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
                         JSONFunc.SetPropertyUser(idUser, "state", value="entered")
                         JSONFunc.SetPropertyUser(idUser, "input", value=[])
