@@ -118,24 +118,58 @@ def callback_inline(call):
                 list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
                 list_input.append(call.data)
                 JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
-                if len(JSONFunc.GetUserConfig(call.message.chat.id) [1])>0:
+
+                if JSONFunc.GetUserConfig(call.message.chat.id) [3]:
+
                     if JSONFunc.GetUserConfig(call.message.chat.id) [5]:
                         Output_Information(JSONFunc.GetUserConfig(call.message.chat.id))
                         bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
                         JSONFunc.SetPropertyUser(idUser, "state", value="entered")
                         JSONFunc.SetPropertyUser(idUser, "input", value=[])
+
                     elif JSONFunc.GetUserConfig(call.message.chat.id) [6]:
                         Output_Information(jSONFunc.GetUserConfig(call.message.chat.id))
                         bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
                         JSONFunc.SetPropertyUser(idUser, "state", value="entered")
                         JSONFunc.SetPropertyUser(idUser, "input", value=[])
+
                     elif JSONFunc.GetUserConfig(call.message.chat.id) [7]:
                         Output_Information(JSONFunc.GetUserConfig(call.message.chat.id))
                         bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
                         JSONFunc.SetPropertyUser(idUser, "state", value="entered")
                         JSONFunc.SetPropertyUser(idUser, "input", value=[])
+
                     else:
                         bot.send_message(call.message.chat.id, "Как отправить файлы?", reply_markup=Keyboard_Extension)
+
+                elif JSONFunc.GetUserConfig(call.message.chat.id) [4]:
+
+                    if len(JSONFunc.GetUserConfig(call.message.chat.id) [1])>0:
+
+                        if JSONFunc.GetUserConfig(call.message.chat.id) [5]:
+                            Output_Information(JSONFunc.GetUserConfig(call.message.chat.id))
+                            bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
+                            JSONFunc.SetPropertyUser(idUser, "state", value="entered")
+                            JSONFunc.SetPropertyUser(idUser, "input", value=[])
+
+                        elif JSONFunc.GetUserConfig(call.message.chat.id) [6]:
+                            Output_Information(jSONFunc.GetUserConfig(call.message.chat.id))
+                            bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
+                            JSONFunc.SetPropertyUser(idUser, "state", value="entered")
+                            JSONFunc.SetPropertyUser(idUser, "input", value=[])
+
+                        elif JSONFunc.GetUserConfig(call.message.chat.id) [7]:
+                            Output_Information(JSONFunc.GetUserConfig(call.message.chat.id))
+                            bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
+                            JSONFunc.SetPropertyUser(idUser, "state", value="entered")
+                            JSONFunc.SetPropertyUser(idUser, "input", value=[])
+
+                        else:
+                            bot.send_message(call.message.chat.id, "Как отправить файлы?", reply_markup=Keyboard_Extension)
+                            
+                    else:
+                        bot.send_message(call.message.chat.id, "Введите почту", reply_markup=Keyboard_Mail)
+                            
                 else:
                     bot.send_message(call.message.chat.id, "Выберите способ отправки", reply_markup=Keyboard_Send)
                 
