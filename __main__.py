@@ -79,6 +79,11 @@ def get_text_messages(message):
             JSONFunc.SetPropertyUser(idUser, "state", value="settings")
             bot.send_message(message.from_user.id, "Новый пароль установлен", reply_markup = Keyboard_Settings)
         
+        elif 'const_mail' == stateUser:
+            JSONFunc.SetPropertyUser(idUser, "ins_mail", value=message.text)
+            bot.send_message(message.from_user.id, "Эта почта добавлена как постоянная", reply_markup = Keyboard_Settings)
+            JSONFunc.SetPropertyUser(message.from_user.id, "state", value="entered")
+
         else:
             bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /start.")
 
@@ -202,11 +207,46 @@ def callback_inline(call):
             elif call.data == 'settings':
                 JSONFunc.SetPropertyUser(idUser, "state", value="settings")
                 bot.send_message(call.message.chat.id, "Меню настроек бота", reply_markup = Keyboard_Settings)
-                
+            
+            elif call.data == 'sending_files':
+                bot.send_message(call.message.chat.id, "Выберите действие", reply_markup = Keyboard_Sending_Files)
             
             elif call.data == 'password':
                 JSONFunc.SetPropertyUser(idUser, "state", value="password")
                 bot.send_message(call.message.chat.id, "Введите новый код доступа")
+            
+            elif call.data == 'always_chat':
+                JSONFunc.SetPropertyUser(idUser, "ins_chat", value=True)
+                JSONFunc.SetPropertyUser(idUser, "ins_mail", value=False)
+                bot.send_message(call.message.chat.id, "Теперь протоколы будут всегда отправляться в чат", reply_markup = Keyboard_Settings)
+
+            elif call.data == 'always_mail':
+                JSONFunc.SetPropertyUser(idUser, "ins_mail", value=True)
+                JSONFunc.SetPropertyUser(idUser, "ins_chat", value=False)
+                bot.send_message(call.message.chat.id, "Теперь протоколы будут всегда отправляться на почту", reply_markup = Keyboard_Settings)
+
+            elif call.data == 'const_mail':
+                JSONFunc.SetPropertyUser(idUser, "state", value='const_mail')
+                bot.send_message(call.message.chat.id, "Введите почту для постоянной отправки на неё")
+
+            elif call.data == 'always_rar':
+                JSONFunc.SetPropertyUser(idUser, "to_rar", value=True)
+                JSONFunc.SetPropertyUser(idUser, "to_file", value=False)
+                JSONFunc.SetPropertyUser(idUser, "to_zip", value=False)
+                bot.send_message(call.message.chat.id, "Теперь протоколы всегда будут отправляться в расширении rar")
+
+            elif call.data == 'always_zip':
+                JSONFunc.SetPropertyUser(idUser, "to_zip", value=True)
+                JSONFunc.SetPropertyUser(idUser, "to_file", value=False)
+                JSONFunc.SetPropertyUser(idUser, "to_rar", value=False)
+                bot.send_message(call.message.chat.id, "Теперь протоколы всегда будут отправляться в расширении zip")
+
+            elif call.data == 'always_fi.le':
+                JSONFunc.SetPropertyUser(idUser, "to_file", value=True)
+                JSONFunc.SetPropertyUser(idUser, "to_zip", value=False)
+                JSONFunc.SetPropertyUser(idUser, "to_rar", value=False)
+                bot.send_message(call.message.chat.id, "Теперь протоколы всегда будут отправляться обычными файлами")
+
 
     except Exception as e:
        print(repr(e))

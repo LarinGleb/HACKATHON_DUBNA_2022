@@ -1,6 +1,8 @@
 {
     "917516209": {
-        "last_mail": [],
+        "last_mail": [
+            "gleblarinpo3@gmail.com"
+        ],
         "standart_mail": [],
         "default_settings": true,
         "ins_chat": true,
@@ -8,10 +10,8 @@
         "to_file": true,
         "to_rar": false,
         "to_zip": false,
-        "state": "object",
-        "input": [
-            "object"
-        ]
+        "state": "entered",
+        "input": []
     },
     "794792323": {
         "last_mail": [
