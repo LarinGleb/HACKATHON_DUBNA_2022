@@ -6,6 +6,8 @@ btn_f2 = types.InlineKeyboardButton('Изменить информацию', cal
 btn_f3 = types.InlineKeyboardButton('Настройки бота', callback_data='settings')
 Keyboard_First.add(btn_f1, btn_f2, btn_f3)
 
+Keyboard_Mail = types.ReplyKeyboardMarkup(row_width=2)
+
 Keyboard_Extract = types.InlineKeyboardMarkup(row_width = 1)
 btn_e1 = types.InlineKeyboardButton('По иону', callback_data='eon')
 btn_e2 = types.InlineKeyboardButton('По серии', callback_data='series')
@@ -34,10 +36,10 @@ btn_c2 = types.InlineKeyboardButton('Столбец 2', callback_data='column_2'
 Keyboard_Column.add(btn_c1, btn_c2)
 
 Keyboard_Eon = types.InlineKeyboardMarkup(row_width = 1)
-btn_eo1 = types.InlineKeyboardButton('1', callback_data='Xe')
-btn_eo2 = types.InlineKeyboardButton('2', callback_data='Kr')
-btn_eo3 = types.InlineKeyboardButton('3', callback_data='Ar')
-btn_eo4 = types.InlineKeyboardButton('4', callback_data='Ne')
+btn_eo1 = types.InlineKeyboardButton('Xe', callback_data='Xe')
+btn_eo2 = types.InlineKeyboardButton('Kr', callback_data='Kr')
+btn_eo3 = types.InlineKeyboardButton('Ar', callback_data='Ar')
+btn_eo4 = types.InlineKeyboardButton('Ne', callback_data='Ne')
 Keyboard_Eon.add(btn_eo1, btn_eo2, btn_eo3, btn_eo4)
 
 Keyboard_Prot = types.InlineKeyboardMarkup(row_width = 1)

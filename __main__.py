@@ -83,6 +83,7 @@ def get_text_messages(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
+    try:
         if call.message:
             idUser = call.from_user.id
             if call.data == "extract":
@@ -102,9 +103,7 @@ def callback_inline(call):
                 bot.send_message(call.message.chat.id, "Выберите протокол", reply_markup=Keyboard_Prot)
 
             elif call.data == 'prot_1' or call.data == 'prot_2' or call.data == 'prot_3':
-                list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
-                list_input.append(call.data)
-                JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
+                JSONFunc.SetInputProperty(idUser, "protocol", call.data)
 
                 if JSONFunc.GetUserConfig(call.message.chat.id) [3]:
 
@@ -171,7 +170,7 @@ def callback_inline(call):
                 JSONFunc.SetPropertyUser(idUser, "state", value="mail")
                 JSONFunc.SetInputProperty(idUser, "send", call.data)
 
-                Keyboard_Mail = types.ReplyKeyboardMarkup(row_width=2)  
+                  
                 if len(JSONFunc.GetUserConfig(call.message.chat.id) [0]) > 0:
                     btn_m1 = types.KeyboardButton(JSONFunc.GetUserConfig(call.message.chat.id) [0][0])
                     Keyboard_Mail.add(btn_m1)
@@ -258,6 +257,7 @@ def callback_inline(call):
                 JSONFunc.SetPropertyUser(idUser, "to_rar", value=False)
                 bot.send_message(call.message.chat.id, "Теперь протоколы всегда будут отправляться обычными файлами")
 
-
+    except Exception as e:
+        print(e)
 
 bot.polling(none_stop=True, interval=0)

@@ -1,2 +1,24 @@
 {
+    "917516209": {
+        "last_mail": [],
+        "standart_mail": [],
+        "default_settings": true,
+        "ins_chat": false,
+        "ins_mail": "",
+        "to_file": false,
+        "to_tar": false,
+        "to_zip": false,
+        "state": "extract",
+        "input": {
+            "values": "",
+            "protocol": "prot_2",
+            "send": "",
+            "ion": "",
+            "input_indexed": "gleblarinpo3@gmail.com",
+            "indexed": "series",
+            "type_file": "",
+            "chosen_column": "",
+            "mail": ""
+        }
+    }
 }
