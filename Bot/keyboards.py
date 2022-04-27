@@ -62,3 +62,12 @@ btn_se1 = types.InlineKeyboardButton('Отправка файлов', callback_d
 btn_se2 = types.InlineKeyboardButton('Код доступа', callback_data='password')
 btn_se3 = types.InlineKeyboardButton('Ссылка на таблицу', callback_data='link_to_table')
 Keyboard_Settings.add(btn_se1, btn_se2, btn_se3)
+
+Keyboard_Sending_Files = types.InlineKeyboardMarkup(row_width = 1)
+btn_sen1 = types.InlineKeyboardButton('Всегда отправлять в чат', callback_data='always_chat')
+btn_sen2 = types.InlineKeyboardButton('Всегда отправлять на почту', callback_data='always_mail')
+btn_sen3 = types.InlineKeyboardButton('Установить постоянную почту', callback_data='const_mail')
+btn_sen4 = types.InlineKeyboardButton('Отправлять всегда в расширении rar', callback_data='always_rar')
+btn_sen5 = types.InlineKeyboardButton('Отправлять всегда в расширении zip', callback_data='always_zip')
+btn_sen6 = types.InlineKeyboardButton('Отправлять всегда обычными файлами', callback_data='always_file')
+Keyboard_Sending_Files.add(btn_sen1, btn_sen2, btn_sen3, btn_sen4, btn_sen5, btn_sen6)
