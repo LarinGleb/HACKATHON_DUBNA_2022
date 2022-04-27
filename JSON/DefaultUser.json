@@ -5,7 +5,19 @@
     "ins_chat" : false,
     "ins_mail" : false, 
     "to_file" : false, 
-    "to_rar" : false, 
+    "to_tar" : false, 
     "to_zip" : false,
-    "state": "start"
+    "state": "start",
+    "input": 
+    {
+        "values": "",
+        "protocol": "",
+        "send": "",
+        "ion": "",
+        "input_indexed": "",
+        "indexed":"",
+        "type_file": "",
+        "chosen_column": "",
+        "mail": ""
+    }
 }

@@ -2,14 +2,14 @@ import smtplib
 from email.mime.text import MIMEText                      
 from email.mime.multipart import MIMEMultipart
 
-from yaml import add_representer 
+import os
 from . import FileInMail
 from pathlib import Path
 
 PORT = 587
 SERVER = "smtp.gmail.com"
-USER = "hackathonbotdubna@gmail.com"
-PASSWORD = "table_bot_ones"
+USER = "hackathonbotdubna8@gmail.com"
+PASSWORD = "tryToHack8!"
 
 def SendMail(Addr: str, FilePaths: str):
 
@@ -32,7 +32,9 @@ def SendMail(Addr: str, FilePaths: str):
 def Mailing(Addresses: list, PDFS: list):
     try:
         for address in Addresses:
-            print(address)
             SendMail(address, PDFS)
+        
+        for file in PDFS:
+            os.remove("Mail/TempFiles/"+file)
     except Exception as e:
         print(e)

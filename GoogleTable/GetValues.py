@@ -44,6 +44,19 @@ def GetPieceTable(List:str, Range: list):
     except Exception as e:
         print(e)
 
+def GetAllSeriesByIon(Ion):
+    series = []
+    for i in GetValuesFromList("Timing"):
+        if i[2] == Ion:
+            series.append(i[0])
+    return series
+
+def GetAllSeriesByObject(Object):
+    series = []
+    for i in GetValuesFromList("Data"):
+        if i[2] == Object:
+            series.append(i[0])
+    return series
 def GetValuesFromList(NameList):
     try:
         result = sheet.values().get(spreadsheetId=SPREADSHEET_ID, range=GetRangeByName(NameList)).execute()
