@@ -2,15 +2,21 @@ import json
 from . import ConfigJSON
 from . import ErrorsJSON
 
-def LoadData(PATH = ConfigJSON.PATH_USERS):
+def LoadData(PATH = ConfigJSON.PATH_USERS, loads = False):
     try:
+        if loads:
+            with open(PATH) as Users:
+                text = Users.read()
+                Users.close
+            return json.loads(text)
+
         with open(PATH) as Users:
             data = json.load(Users)
             Users.close()
         return data
     except Exception as ex:
         print(ex)
-    
+
 def GetUserConfigDict(TelegaID: int = -1):
     if type(TelegaID) != int:
         raise ErrorsJSON.InvalidID(f"ID {TelegaID} isn't integer. Please check type of ID")
@@ -41,7 +47,7 @@ def AddUser(TelegaID: int):
     configUser = LoadData()
     configUser[TelegaID] = LoadData(ConfigJSON.PATH_DEFAULT_USER)
 
-    with open(ConfigJSON.PATH_USERS, 'w') as Users:
+    with open(ConfigJSON.PATH_USERS, "w") as Users:
         json.dump(configUser, Users, indent=4)
         Users.close()
 
@@ -59,7 +65,7 @@ def SetPropertyUser(TelegaID: int = -1, Property: str = "", IndexProperty: int =
         dataUsers = LoadData()
         dataUsers[str(TelegaID)] = configUser
 
-        with open(ConfigJSON.PATH_USERS, 'w') as Users:
+        with open(ConfigJSON.PATH_USERS, "w") as Users:
             json.dump(dataUsers, Users, indent=4)
             Users.close()
 
@@ -69,3 +75,13 @@ def SetPropertyUser(TelegaID: int = -1, Property: str = "", IndexProperty: int =
 def CheckUser(TelegaID: int):
     data = LoadData()
     return str(TelegaID) in data.keys()
+
+def SetInputProperty(TelegaID: int = -1, Property: str = "", value = None):
+    inputUser = GetUserConfigDict(TelegaID)
+    input = inputUser["input"]
+    input[Property] = value
+
+    SetPropertyUser(TelegaID, "input", value=input)
+
+def SetDefaultInput(TelegaID: int = -1):
+    SetPropertyUser(TelegaID, "input", value=LoadData("JSON/DefaultStdIn.json"))

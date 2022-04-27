@@ -10,7 +10,7 @@ def AttachFile(Message: MIMEMultipart, FilePath: str):
     ctype, encoding = mimetypes.guess_type(FilePath)
     maintype, subtype = ctype.split('/', 1)  
 
-    with open(FilePath, 'rb') as fp:
+    with open("Mail/TempFiles/" + FilePath, 'rb') as fp:
         file = MIMEBase(maintype, subtype)         
         file.set_payload(fp.read())                    
         fp.close()
@@ -19,6 +19,6 @@ def AttachFile(Message: MIMEMultipart, FilePath: str):
     file.add_header('Content-Disposition', 'attachment', filename=filename) 
     Message.attach(file) 
 
-def ProcessAttachment(Message: MIMEMultipart, FilePaths: list(str)):
+def ProcessAttachment(Message: MIMEMultipart, FilePaths: list):
     for file in FilePaths:                         
         AttachFile(Message, file)               
