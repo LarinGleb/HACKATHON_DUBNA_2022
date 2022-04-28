@@ -22,5 +22,30 @@
             "chosen_column": "",
             "mail": ""
         }
+    },
+    "794792323": {
+        "last_mail": [],
+        "standart_mail": [
+            "petr.povt@gmail.com"
+        ],
+        "default_settings": true,
+        "ins_chat": false,
+        "ins_mail": false,
+        "to_file": false,
+        "to_tar": false,
+        "to_zip": true,
+        "state": "extract",
+        "input": {
+            "values": "",
+            "protocol": "prot_2",
+            "send": "ins_chat",
+            "ion": "",
+            "input_indexed": "3 4  5",
+            "indexed": "series",
+            "type_file": "",
+            "chosen_column": "",
+            "mail": ""
+        },
+        "to_rar": false
     }
 }

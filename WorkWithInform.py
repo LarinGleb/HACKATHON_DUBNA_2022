@@ -1,5 +1,4 @@
 import os
-from regex import D
 import telebot
 from telebot import *
 import GoogleTable
