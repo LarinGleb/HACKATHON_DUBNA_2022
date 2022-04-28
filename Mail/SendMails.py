@@ -4,7 +4,7 @@ from email.mime.multipart import MIMEMultipart
 
 import os
 from . import FileInMail
-from pathlib import Path
+
 
 PORT = 587
 SERVER = "smtp.gmail.com"

@@ -1,7 +1,6 @@
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 from google.oauth2 import service_account
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly', "https://www.googleapis.com/auth/drive"]
 
 SPREADSHEET_ID = '1Y0mSqV5uCWjqg1l8FZZT2lQxBc2cJNxQonDWm-rC7wc'
 
@@ -12,9 +11,12 @@ table_range = {"Информация по иону": "A:O",
 
 
 credentials = service_account.Credentials.from_service_account_file('credentials.json', scopes=SCOPES)
-service = build('sheets', 'v4', credentials=credentials)
-sheet = service.spreadsheets()
+try:
+    service = build('sheets', 'v4', credentials=credentials)
+except:
+    service = build('sheets', 'v4', credentials=credentials, discoveryServiceUrl='https://sheets.googleapis.com/$discovery/rest?version=v4', static_discovery=False)
 
+sheet = service.spreadsheets()
 def GetValuesByValue(Value):
     information = []
     for list in table_range.keys():
