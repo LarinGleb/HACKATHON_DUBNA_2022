@@ -2,21 +2,46 @@
     "917516209": {
         "last_mail": [],
         "standart_mail": [
-            "gleblarinpo3@gmail.com"
+            "gleblarinpo3@gmail.com",
+            "gleblarinpo@gmail.com"
+        ],
+        "default_settings": true,
+        "ins_chat": false,
+        "ins_mail": true,
+        "to_file": false,
+        "to_tar": false,
+        "to_zip": true,
+        "state": "entered",
+        "input": {
+            "values": "",
+            "protocol": "",
+            "send": "",
+            "ion": "",
+            "input_indexed": "",
+            "indexed": "",
+            "type_file": "",
+            "chosen_column": "",
+            "mail": ""
+        }
+    },
+    "794792323": {
+        "last_mail": [],
+        "standart_mail": [
+            "petr.povt@gmail.com"
         ],
         "default_settings": true,
         "ins_chat": false,
         "ins_mail": false,
         "to_file": false,
         "to_tar": false,
-        "to_zip": false,
-        "state": "mail",
+        "to_zip": true,
+        "state": "extract",
         "input": {
             "values": "",
             "protocol": "prot_2",
-            "send": "ins_mail",
+            "send": "ins_chat",
             "ion": "",
-            "input_indexed": "5 6",
+            "input_indexed": "3 4  5",
             "indexed": "series",
             "type_file": "",
             "chosen_column": "",

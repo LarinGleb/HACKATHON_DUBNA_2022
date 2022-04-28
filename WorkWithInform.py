@@ -1,5 +1,4 @@
 import os
-from regex import D
 import telebot
 from telebot import *
 import GoogleTable
@@ -105,11 +104,10 @@ def Output_Information(Data, Bot, Id):
     ins_chat = Data[3]
     ins_mail = Data[4]
     to_file = Data[5]
-    to_zip = Data[6]
-    to_tar = Data[7]
+    to_zip = Data[7]
+    to_tar = Data[6]
     input = Data[9]
     format_file = ""
-
 
     if to_zip or input["type_file"] == "to_zip":
         format_file = "zip"
@@ -143,7 +141,6 @@ def Output_Information(Data, Bot, Id):
     if input["protocol"] == "prot_2":
         for seria in series:
             GenerateAccessProtoclBySeria(seria)
-
 
     if format_file == "zip":
         AddToZip("Protocols", GetAllTempFiles())

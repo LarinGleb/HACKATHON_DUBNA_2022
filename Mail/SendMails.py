@@ -4,8 +4,6 @@ from email.mime.multipart import MIMEMultipart
 
 import os
 from . import FileInMail
-
-
 PORT = 587
 SERVER = "smtp.gmail.com"
 USER = "hackathonbotdubna8@gmail.com"
