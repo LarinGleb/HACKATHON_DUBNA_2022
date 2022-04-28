@@ -13,6 +13,7 @@ from Bot.WorkWithInform import *
 
 from JSON import JSONFunc
 from JSON import ConfigJSON
+import JSON
 
 bot = telebot.TeleBot('5175785145:AAGsNoU_rOlVd6zuMbFhD1W1D4nfxAd88Ag')
 print('Bot started')
@@ -129,7 +130,7 @@ def callback_inline(call):
                         JSONFunc.SetPropertyUser(idUser, "input", value=[])
 
                     elif JSONFunc.GetUserConfig(call.message.chat.id) [6]:
-                        Output_Information(jSONFunc.GetUserConfig(call.message.chat.id))
+                        Output_Information(JSONFunc.GetUserConfig(call.message.chat.id))
                         bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
                         JSONFunc.SetPropertyUser(idUser, "state", value="entered")
                         JSONFunc.SetPropertyUser(idUser, "input", value=[])
@@ -154,7 +155,7 @@ def callback_inline(call):
                             JSONFunc.SetPropertyUser(idUser, "input", value=[])
 
                         elif JSONFunc.GetUserConfig(call.message.chat.id) [6]:
-                            Output_Information(jSONFunc.GetUserConfig(call.message.chat.id))
+                            Output_Information(JSONFunc.GetUserConfig(call.message.chat.id))
                             bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
                             JSONFunc.SetPropertyUser(idUser, "state", value="entered")
                             JSONFunc.SetPropertyUser(idUser, "input", value=[])
@@ -207,7 +208,7 @@ def callback_inline(call):
                         Keyboard_Mail.add(btn_m2)
                 bot.send_message(call.message.chat.id, "Введите почту", reply_markup=Keyboard_Mail)
 
-            elif call.data == 'to_zip' or call.data == 'to_pdf' or call.data == 'to_file':
+            elif call.data == 'to_zip' or call.data == 'to_tar' or call.data == 'to_file':
                 list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
                 list_input.append(call.data)
                 JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
