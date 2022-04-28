@@ -34,10 +34,10 @@ btn_c2 = types.InlineKeyboardButton('Столбец 2', callback_data='column_2'
 Keyboard_Column.add(btn_c1, btn_c2)
 
 Keyboard_Eon = types.InlineKeyboardMarkup(row_width = 1)
-btn_eo1 = types.InlineKeyboardButton('1', callback_data='eon_1')
-btn_eo2 = types.InlineKeyboardButton('2', callback_data='eon_2')
-btn_eo3 = types.InlineKeyboardButton('3', callback_data='eon_3')
-btn_eo4 = types.InlineKeyboardButton('4', callback_data='eon_4')
+btn_eo1 = types.InlineKeyboardButton('1', callback_data='Xe')
+btn_eo2 = types.InlineKeyboardButton('2', callback_data='Kr')
+btn_eo3 = types.InlineKeyboardButton('3', callback_data='Ar')
+btn_eo4 = types.InlineKeyboardButton('4', callback_data='Ne')
 Keyboard_Eon.add(btn_eo1, btn_eo2, btn_eo3, btn_eo4)
 
 Keyboard_Prot = types.InlineKeyboardMarkup(row_width = 1)
@@ -48,7 +48,7 @@ Keyboard_Prot.add(btn_p1, btn_p2, btn_p3)
 
 Keyboard_Extension = types.InlineKeyboardMarkup(row_width = 1)
 btn_ex1 = types.InlineKeyboardButton('В zip', callback_data='to_zip')
-btn_ex2 = types.InlineKeyboardButton('В rar', callback_data='to_rar')
+btn_ex2 = types.InlineKeyboardButton('В tar', callback_data='to_tar')
 btn_ex3 = types.InlineKeyboardButton('Без архива', callback_data='to_file')
 Keyboard_Extension.add(btn_ex1, btn_ex2, btn_ex3)
 
