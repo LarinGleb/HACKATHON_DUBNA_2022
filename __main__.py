@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from aiohttp import JsonPayload
-import telebot
+#import telebot
 from telebot import *
 from aiogram.types import ReplyKeyboardRemove, \
     ReplyKeyboardMarkup, KeyboardButton, \
@@ -13,6 +13,7 @@ from WorkWithInform import *
 
 from JSON import JSONFunc
 from JSON import ConfigJSON
+import JSON
 
 bot = telebot.TeleBot("5362077781:AAFQzCUuV8KKX7q_wShDxYY9t_yFP4yoA7g")
 print("Bot started")
@@ -66,6 +67,7 @@ def get_text_messages(message):
                 list_last_mail = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_LAST_MAIL]
                 list_last_mail.append(message.text)
                 JSONFunc.SetPropertyUser(idUser, "last_mail", value=list_last_mail)
+
             bot.send_message(message.from_user.id, "Как отправить файлы?", reply_markup=Keyboard_Extension)
 
         elif "password" == stateUser:
@@ -152,8 +154,17 @@ def callback_inline(call):
 
                         else:
                             bot.send_message(call.message.chat.id, "Как отправить файлы?", reply_markup=Keyboard_Extension)
-                            
+
                     else:
+                        JSONFunc.SetPropertyUser(idUser, "state", value='mail')
+
+                        Keyboard_Mail = types.ReplyKeyboardMarkup(row_width=2)  
+                        if len(JSONFunc.GetUserConfig(call.message.chat.id) [0]) > 0:
+                            btn_m1 = types.KeyboardButton(JSONFunc.GetUserConfig(call.message.chat.id) [0][0])
+                            Keyboard_Mail.add(btn_m1)
+                            if len(JSONFunc.GetUserConfig(call.message.chat.id) [0]) > 1:
+                                btn_m2 = types.KeyboardButton(JSONFunc.GetUserConfig(call.message.chat.id) [0][1])
+                                Keyboard_Mail.add(btn_m2)
                         bot.send_message(call.message.chat.id, "Введите почту", reply_markup=Keyboard_Mail)
                             
                 else:
@@ -179,14 +190,15 @@ def callback_inline(call):
                         Keyboard_Mail.add(btn_m2)
                 bot.send_message(call.message.chat.id, "Введите почту", reply_markup=Keyboard_Mail)
 
-            elif call.data == "to_zip" or call.data == "to_tar" or call.data == "to_file":
-                JSONFunc.SetInputProperty(idUser, "type_file", call.data)
-                Output_Information(JSONFunc.GetUserConfig(call.message.chat.id), bot, call.message.chat.id)
+            elif call.data == 'to_zip' or call.data == 'to_tar' or call.data == 'to_file':
+                list_input = JSONFunc.GetUserConfig(idUser)[ConfigJSON.I_INPUT]
+                list_input.append(call.data)
+                JSONFunc.SetPropertyUser(idUser, "input", value=list_input)
+                Output_Information(JSONFunc.GetUserConfig(call.message.chat.id))
                 bot.send_message(call.message.chat.id, "Спасибо, протокол отправлен", reply_markup = Keyboard_First)
                 JSONFunc.SetPropertyUser(idUser, "state", value="entered")
                 JSONFunc.SetDefaultInput(idUser)
 
-            
             elif call.data == "change":
                 bot.send_message(call.message.chat.id, "Выберите лист", reply_markup = Keyboard_Lists)
 
@@ -224,8 +236,17 @@ def callback_inline(call):
             elif call.data == "password":
                 JSONFunc.SetPropertyUser(idUser, "state", value="password")
                 bot.send_message(call.message.chat.id, "Введите новый код доступа")
+
+            elif call.data == 'link_to_table':
+                print('dodelat')
+                #изменение ссылки на таблицу
+
+            elif call.data == 'menu':
+                JSONFunc.SetPropertyUser(idUser, "state", value="entered")
+                bot.send_message(call.message.chat.id, "Выберите действие", reply_markup=Keyboard_First)
             
             elif call.data == 'always_chat':
+                print('1234')
                 JSONFunc.SetPropertyUser(idUser, "ins_chat", value=True)
                 JSONFunc.SetPropertyUser(idUser, "ins_mail", value=False)
                 bot.send_message(call.message.chat.id, "Теперь протоколы будут всегда отправляться в чат", reply_markup = Keyboard_Settings)
